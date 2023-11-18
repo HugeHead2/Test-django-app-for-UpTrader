@@ -1,0 +1,27 @@
+{% load menu_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test task</title>
+</head>
+<body>
+
+
+{% draw_menu 'main_menu' %}
+<ul>
+    {% for item in menu_items %}
+        <li{% if item == active_menu_item %} class="active"{% endif %}>
+            <a href="{{ item.url|default:item.named_url }}">{{ item.title }}</a>
+            {% if item.children.all %}
+                <ul>
+                    {% for child in item.children.all %}
+                        <li><a href="{{ child.url|default:child.named_url }}">{{ child.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
